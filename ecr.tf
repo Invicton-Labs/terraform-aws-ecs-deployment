@@ -1,7 +1,6 @@
 module "ecr_repositories" {
-  //source                   = "Invicton-Labs/ecr-repository/aws"
-  //version                  = "~>0.1.1"
-  source                   = "../terraform-aws-ecr-repository"
+  source                   = "Invicton-Labs/ecr-repository/aws"
+  version                  = "~>0.1.1"
   for_each                 = local.var_ecr_repositories_to_create
   name                     = each.key
   create_lifecycle_policy  = each.value.create_lifecycle_policy
