@@ -1,0 +1,15 @@
+name: 'Invicton-Labs/ecs-deployment/aws'
+description: 'Deploys a new ECS task definition.'
+
+inputs:
+  workflow_config:
+    description: "The value of the ECS_DEPLOYMENT_WORKFLOW_CONFIG secret."
+    required: true
+
+  
+
+runs:
+  using: 'composite'
+
+  steps:
+    - 
