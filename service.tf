@@ -11,7 +11,7 @@ resource "aws_ecs_service" "this" {
   ]
   name            = local.var_name
   cluster         = local.var_cluster_arn
-  launch_type     = local.var_launch_type
+  launch_type     = length(local.var_capacity_provider_strategies) > 0 ? null : local.var_launch_type
   task_definition = aws_ecs_task_definition.this.arn
   desired_count   = local.var_autoscaling_configuration != null ? null : local.var_desired_count
 
@@ -22,6 +22,15 @@ resource "aws_ecs_service" "this" {
       target_group_arn = local.var_load_balancer_configuration.target_group_arn
       container_name   = local.var_load_balancer_configuration.container_name
       container_port   = local.var_load_balancer_configuration.container_port
+    }
+  }
+
+  dynamic "capacity_provider_strategy" {
+    for_each = local.var_capacity_provider_strategies
+    content {
+      base              = capacity_provider_strategy.value.base
+      capacity_provider = capacity_provider_strategy.value.capacity_provider
+      weight            = capacity_provider_strategy.value.weight
     }
   }
 

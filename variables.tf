@@ -78,13 +78,22 @@ locals {
 variable "launch_type" {
   description = "The launch type to use for the ECS task/service."
   type        = string
-  validation {
-    condition     = var.launch_type != null
-    error_message = "The `launch_type` input variable may not be `null`."
-  }
 }
 locals {
   var_launch_type = var.launch_type
+}
+
+variable "capacity_provider_strategies" {
+  description = "The `capacity_provider_strategy` values."
+  type = list(object({
+    base              = number
+    capacity_provider = string
+    weight            = number
+  }))
+  default = []
+}
+locals {
+  var_capacity_provider_strategies = var.capacity_provider_strategies != null ? var.capacity_provider_strategies : []
 }
 
 variable "network_mode" {
