@@ -1,7 +1,7 @@
 // Create a log group for the task to log to
 module "task_log_group" {
   source  = "Invicton-Labs/log-group/aws"
-  version = "~> 0.3.0"
+  version = "~> 0.4.0"
   log_group_config = {
     name = "/ecs/task/${local.var_name}"
   }
